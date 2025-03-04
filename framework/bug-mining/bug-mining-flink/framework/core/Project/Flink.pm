@@ -84,7 +84,7 @@ sub initialize_revision {
     $self->SUPER::initialize_revision($rev_id);
 
     my $work_dir = $self->{prog_root};
-    my $result = _default_layout($work_dir) // _maven_2_layout($work_dir) // _ant_layout($work_dir) // _maven_1_layout($work_dir);
+    my $result = _default_layout($self, $work_dir) // _maven_2_layout($work_dir) // _ant_layout($work_dir) // _maven_1_layout($work_dir);
     die "Unknown layout for revision: ${rev_id}" unless defined $result;
 
     $self->_add_to_layout_map($rev_id, $result->{src}, $result->{test});
@@ -102,12 +102,14 @@ sub initialize_revision {
 # Default directory layouts, common in many (Maven) projects
 #
 sub _default_layout {
-    @_ == 1 or die $ARG_ERROR;
-    my ($dir) = @_;
+    @_ == 2 or die $ARG_ERROR;
+    my ($self, $dir) = @_;
 
     # Test for two common layouts
     my $result;
-    if (-e "$dir/src/main/java" && -e "$dir/src/test/java"){
+    if (defined $self->{subproject} && -e "$dir/src/main/java" && -e "$dir/src/test/java") {
+        $result = {src=>"$self->{subproject}/src/main/java", test=>"$self->{subproject}/src/test/java"};
+    } elsif (-e "$dir/src/main/java" && -e "$dir/src/test/java"){
         $result = {src=>"src/main/java", test=>"src/test/java"};
     } elsif (-e "$dir/src/java" && -e "$dir/src/test"){
         $result = {src=>"src/java", test=>"src/test"};

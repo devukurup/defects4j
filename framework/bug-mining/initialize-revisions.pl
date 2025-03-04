@@ -134,6 +134,7 @@ sub _init_version {
     if (defined $SUBPROJ) {
         $work_dir .= "/$SUBPROJ/";
         $project->{prog_root} = $work_dir;
+        $project->{subproject} = $SUBPROJ;
     }
 
     system("mkdir -p $ANALYZER_OUTPUT/$bid");
