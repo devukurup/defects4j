@@ -1,0 +1,5 @@
+<include name='**/${test}.java' />
+<include name='**/*Test.java' />
+<include name='**/*TestCase.java' />
+<include name='**/Test*.java' />
+<exclude name='**/*Abstract*Test.java' />

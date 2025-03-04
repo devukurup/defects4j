@@ -1,0 +1,4 @@
+org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkBuilderTest.java
+org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkElementConverterTest.java
+org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkTest.java
+org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkWriterTest.java
